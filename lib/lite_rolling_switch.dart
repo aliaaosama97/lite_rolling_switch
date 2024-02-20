@@ -36,7 +36,7 @@ class LiteRollingSwitch extends StatefulWidget {
   final Function onTap;
   final Function onDoubleTap;
   final Function onSwipe;
-
+  final bool enabel;
   LiteRollingSwitch({
     this.value = false,
     this.width = 130,
@@ -54,6 +54,7 @@ class LiteRollingSwitch extends StatefulWidget {
     required this.onDoubleTap,
     required this.onSwipe,
     required this.onChanged,
+    this.enabel = true,
   });
 
   @override
@@ -109,18 +110,18 @@ class _RollingSwitchState extends State<LiteRollingSwitch>
     Color? transitionColor = Color.lerp(widget.colorOff, widget.colorOn, value);
 
     return GestureDetector(
-      onDoubleTap: () {
+      onDoubleTap: widget.enabel?() {
         _action();
         widget.onDoubleTap();
-      },
-      onTap: () {
+      }: null,
+      onTap: widget.enabel?() {
         _action();
         widget.onTap();
-      },
-      onPanEnd: (details) {
+      }: null,
+      onPanEnd:widget.enabel? (details) {
         _action();
         widget.onSwipe();
-      },
+      }: null,
       child: Container(
         padding: EdgeInsets.all(5),
         width: widget.width,
